@@ -1,0 +1,277 @@
+@import "vars"
+@import "keyframes"
+@import "fonts"
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+ul, li
+  list-style: none
+
+a
+  text-decoration: none
+  color: inherit
+
+button, summary
+  outline: none
+  border: none
+  cursor: pointer
+
+.container
+  max-width: $desktopWidth
+  padding: 0 190px
+  margin: 0 auto
+
+//============== HEADER ==============//
+#header
+  font-family: $mainFontFamily
+  background-color: $primaryBgColor
+  border-bottom: 1px solid $btnBgColor
+
+  .header__wrap
+    position: relative
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  .header__menu
+    flex-grow: 1
+    display: flex
+    justify-content: space-between
+    align-items: center
+    & > ul
+      flex-grow: 1
+      display: flex
+      justify-content: space-around
+      max-width: 700px
+      li
+        font-size: 16px
+        padding: 20px 0
+        &>a
+          display: inline-block
+          padding: 5px 8px
+          border-bottom: 2px solid transparent
+          transition: border-bottom-color .25s
+        .menu__hidden-wrap
+          width: max-content
+          padding: 0 38px 40px
+          background-color: $secondaryBgColor
+          position: absolute
+          bottom: 100%
+        &:hover >a
+          border-bottom-color: $borderActiveLink
+        &:hover .menu__hidden-wrap
+          top: 101%
+          bottom: auto
+      .menu__hidden
+        display: flex
+        flex-wrap: wrap
+        ul
+          display: block
+          padding: 30px 24px 0
+          li
+            padding: 0
+          a
+            display: inline-block
+            color: $clrLinkHidden
+            font-size: 12px
+            &.menu__title
+              border-bottom: 0
+              color: $clrLink
+              font-size: 14px
+              padding-bottom: 18px
+
+
+  .header__btn
+    display: none
+    background: none
+    position: relative
+    cursor: pointer
+    width: 30px
+    height: 17px
+    span
+      position: absolute
+      display: block
+      background: $btnBgColor
+      width: 30px
+      height: 2px
+      margin-bottom: 5px
+      border-radius: 2px
+      &:nth-child(1)
+        top: 0px
+      &:nth-child(2)
+        top: 7.5px
+      &:nth-child(3)
+        top: 15px
+    &.active span:nth-child(1)
+      animation: topLine 0.5s forwards
+    &.active span:nth-child(2)
+      animation: centerLine 0.5s forwards
+    &.active span:nth-child(3)
+      animation: bottomLine 0.5s forwards
+    &.no-active span:nth-child(1)
+      animation: topLine1 0.5s forwards
+    &.no-active span:nth-child(2)
+      opacity: 0
+      animation: centerLine1 0.5s forwards
+    &.no-active span:nth-child(3)
+      animation: bottomLine1 0.5s forwards
+    .no-animation
+      animation: none !important
+      opacity: 1!important
+
+
+  .header__sing-in
+    padding: 10px 30px
+    color: $clrBtn
+    background-color: $btnBgColor
+    font-size: 16px
+    transition: background-color .25s
+    &:hover
+      background-color: $borderActiveLink
+
+  .header__lang-wrap
+    position: absolute
+    height: 100%
+    left: 101%
+    width: -webkit-max-content
+    width: -moz-max-content
+    width: max-content
+    .header__lang
+      position: relative
+      top: 50%
+      transform: translateY(-50%)
+    .img__wrap
+      width: 17px
+      overflow: hidden
+      height: 11px
+      margin-right: 4px
+      img
+        position: relative
+        width: 68px
+        vertical-align: top
+    .current__value
+      cursor: pointer
+      width: 110px
+      height: 25px
+      margin-bottom: 10px
+      color: $btnBgColor
+      font-size: 13px
+      display: flex
+      justify-content: space-between
+      align-items: center
+      transition: color .25s
+      span.line
+        display: block
+        width: 1px
+        height: 100%
+        background-color: $btnBgColor
+      &:hover
+        color: $clrLink
+      .current__country
+        display: flex
+        align-items: center
+        flex-basis: 45%
+      .current__currency
+        flex-basis: 45%
+        text-align: right
+    .current__country
+      img
+        &.de
+          left: 0
+        &.ru
+          left: -17px
+        &.es
+          left: -34px
+        &.us
+          left: -51px
+
+    .all__value
+      border: 2px solid $secondaryBgColor
+      position: absolute
+      top: 50px
+      right: 0
+      display: none
+      p
+        padding-bottom: 15px
+        font-size: 14px
+        color: $clrLink
+      li
+        cursor: pointer
+        padding-bottom: 10px
+        font-size: 12px
+        color: $clrLinkHidden
+    .all__value-country
+      padding: 30px 40px 40px
+      background-color: $secondaryBgColor
+      li
+        display: flex
+        align-items: center
+      .de img
+        left: 0
+      .ru img
+        left: -17px
+      .es img
+        left: -34px
+      .us img
+        left: -51px
+    .all__value-currency
+      padding: 30px  40px 40px
+      background-color: $primaryBgColor
+
+//============= MEDIA REQUIRE ===========//
+@media screen and (max-width: $mdDesktopWidth)
+  .container
+    padding: 0 100px
+  #header
+    .header__lang
+      .current__value
+        font-size: 10px
+        width: 80px
+
+@media screen and (max-width: $tableWidth)
+  .container
+    padding: 0 20px
+  #header
+    padding: 10px 0
+    .header__lang-wrap
+      position: static
+      transform: none
+      margin-bottom: 20px
+      .header__lang
+        transform: none
+      .current__value
+        font-size: 14px
+        width: 150px
+      .all__value
+        position: static
+        border: none
+        border-top: 2px solid $borderActiveLink
+        margin-top: 20px
+    .header__sing-in
+      margin: 20px 0
+    .header__btn
+      display: block
+      margin: 0 15px 0 auto
+    .header__menu
+      display: block
+      transform: translateX(-100%)
+      position: absolute
+      top: 52px
+      width: calc(100% + 40px)
+      left: -20px
+      padding: 20px
+      background-color: $secondaryBgColor
+      transition: all .5s
+      &.show
+        transform: translateX(0)
+      & > ul
+        display: block
+        li
+          padding: 0
+          .menu__hidden-wrap
+            position: static
+            display: none
+            padding: 0 0 40px
+            background-color: $primaryBgColor
